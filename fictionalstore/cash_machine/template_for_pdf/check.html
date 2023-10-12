@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Чек</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            width: 300px;
+            margin: 0 auto;
+        }
+        .info {
+            margin-bottom: 10px;
+        }
+        .item {
+            margin-bottom: 5px;
+        }
+        .total {
+            text-align: left;
+            margin-top: 10px;
+        }
+        .payment-method {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .item_price{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="info">
+        <p>ООО "КОМПАНИЯ К"</p>
+        <p>Добро пожаловать</p>
+        <p>ККМ 00075411&emsp;&emsp;&emsp;&emsp;#3969</p>
+        <p>ИНН 1087746942040</p>
+        <p>&emsp;&emsp;&emsp;&emsp;ЭКЛЗ 3851495566</p>
+        <p>{{ date }} {{ time }} СИС.АДМИ</p>
+    </div>
+    {% for item in items %}
+        <div class="item">
+            <p>{{ item.title}}</p>
+            <div>
+                <table class="item_price">
+                <tr>
+                    <td class="item_price">{{ item.count }}</td>
+                    <td class="item_price">={{ item.price * item.count }}</td>
+                </tr>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="total">
+        <p>Итог</p>
+        <p>&emsp; {{ total_price }}</p>
+        <table>
+            <td style="width: 100%">Наличными</td>
+            <td style="width: 100%">={{ total_price }}</td>
+        </table>
+
+
+    </div>
+    <div class="footer">
+        <p>********************************************************************</p>
+    </div>
+    <div class="payment-method">
+        <p>00003751# 05970</p>
+    </div>
+
+</body>
+</html>
