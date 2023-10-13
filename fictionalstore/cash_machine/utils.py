@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 from collections import defaultdict
+from pathlib import Path
 
 import qrcode
 
@@ -27,7 +28,7 @@ def get_items_by_ids(ids):
     return items
 
 
-def create_check(items: Item, date_obj: datetime) -> str:
+def create_check(items: list[dict], date_obj: datetime, save_path: Path) -> str:
     """
     Создаёт PDF и возвращает ссылку на него
     """
@@ -45,9 +46,13 @@ def create_check(items: Item, date_obj: datetime) -> str:
     options = {
         'page-size': 'A6'}
     config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
-
+    # Если нет папки создаём ей
+    if not save_path.exists():
+        save_path.mkdir(parents=True)
+    # Формирование назввания файла
     file_check = f'check_{date_obj.strftime("%y-%m-%d__%H-%M-%S")}.pdf'
-    output_path = str(settings.MEDIA_ROOT / file_check)
+    # Пусть сохранения файла
+    output_path = str(save_path / file_check)
 
     pdfkit.from_string(html_code, output_path=output_path, configuration=config, options=options)
     return os.path.join(settings.MEDIA_URL, file_check)

@@ -43,7 +43,7 @@ class CashMachineApi(APIView):
             })
 
         # Создание PDF чека из шаблона
-        url_check = create_check(data, date_obj=datetime.now())
+        url_check = create_check(data, date_obj=datetime.now(), save_path=settings.MEDIA_ROOT)
 
         full_url = f"http://{request.META['HTTP_HOST']}/{url_check}"
 
